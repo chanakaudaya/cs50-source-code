@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Currency Exchange</title>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+
+                document.querySelector('form').onsubmit = function() {
+                    fetch('https://www.hpb.health.gov.lk/api/get-current-statistical')
+                .then(respose => respose.json())
+                .then(data => {
+                    //console.log(data)
+                    const covid = document.querySelector('#covid').value;
+                    const covid_data = data.data[covid]
+                    if (covid_data !== undefined) {
+                        document.querySelector('#result').innerHTML = `${covid} is ${covid_data}`
+                    } else {
+                        document.querySelector('#result').innerHTML = `No data availabel for that type ${covid}`
+                    }
+                    console.log(local_deaths)
+                   // document.querySelector('body').innerHTML = `Local Covid Deaths is ${local_deaths}`
+                });
+                    return false
+                }
+
+
+            });
+        </script>
+    </head>
+    <body>  
+        <form>
+            <input id="covid" placeholder="Type of Data" type="text">
+            <input type="submit" value="Fetch">
+        </form>
+        <div id="result">
+
+        </div>
+    </body>
+</html>
